@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="login-container">
+        <!-- Logo centered -->
+        <div class="d-flex justify-content-center">
+          <img
+            src="../../assets/images/Learnify-logo.png"
+            alt="Logo"
+            class="logo mb-5"
+          />
+        </div>
+
+        <h3 class="text-center mb-4">
+          Log in to continue your learning journey
+        </h3>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group mb-3">
+            <!-- Left-aligned label -->
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              formControlName="email"
+              type="email"
+              class="form-control"
+              placeholder="Enter your email"
+            />
+            <div
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              class="error-message"
+            >
+              <small *ngIf="loginForm.get('email')?.hasError('required')"
+                >Email is required.</small
+              >
+              <small *ngIf="loginForm.get('email')?.hasError('email')"
+                >Enter a valid email.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <!-- Left-aligned label -->
+            <label for="password" class="form-label">Password</label>
+            <input
+              id="password"
+              formControlName="password"
+              type="password"
+              class="form-control"
+              placeholder="Enter your password"
+            />
+            
+            <div
+              *ngIf="
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+              "
+              class="error-message"
+            >
+              <small *ngIf="loginForm.get('password')?.hasError('required')"
+                >Password is required.</small
+              >
+              <small *ngIf="loginForm.get('password')?.hasError('minlength')">
+                Password must be at least 6 characters long.
+              </small>
+            </div>
+            <div class="forgot text-end mt-2">
+                <a href="">Forgot password?</a>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="loginForm.invalid"
+          >
+            Log in
+          </button>
+        </form>
+        <div class="text-start mt-3">
+          <span>Don't have an account? <a href="signup">Sign up</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
