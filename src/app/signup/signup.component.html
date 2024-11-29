@@ -11,9 +11,7 @@
           />
         </div>
 
-        <h3 class="text-center mb-4">
-          Sign up and start learning
-        </h3>
+        <h3 class="text-center mb-4">Sign up and start learning</h3>
 
         <form [formGroup]="step1Form" (ngSubmit)="nextStep()">
           <div class="form-group mb-3">
@@ -25,9 +23,19 @@
               class="form-control"
               placeholder="Enter your email"
             />
-            <div *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched" class="error-message">
-              <small *ngIf="step1Form.get('email')?.hasError('required')">Email is required.</small>
-              <small *ngIf="step1Form.get('email')?.hasError('email')">Enter a valid email.</small>
+            <div
+              *ngIf="
+                step1Form.get('email')?.invalid &&
+                step1Form.get('email')?.touched
+              "
+              class="error-message"
+            >
+              <small *ngIf="step1Form.get('email')?.hasError('required')"
+                >Email is required.</small
+              >
+              <small *ngIf="step1Form.get('email')?.hasError('email')"
+                >Enter a valid email.</small
+              >
             </div>
           </div>
 
@@ -40,14 +48,26 @@
               class="form-control"
               placeholder="Enter your password"
             />
-            <div *ngIf="step1Form.get('password')?.invalid && step1Form.get('password')?.touched" class="error-message">
-              <small *ngIf="step1Form.get('password')?.hasError('required')">Password is required.</small>
-              <small *ngIf="step1Form.get('password')?.hasError('minlength')">Password must be at least 6 characters long.</small>
+            <div
+              *ngIf="
+                step1Form.get('password')?.invalid &&
+                step1Form.get('password')?.touched
+              "
+              class="error-message"
+            >
+              <small *ngIf="step1Form.get('password')?.hasError('required')"
+                >Password is required.</small
+              >
+              <small *ngIf="step1Form.get('password')?.hasError('minlength')"
+                >Password must be at least 6 characters long.</small
+              >
             </div>
           </div>
 
           <div class="form-group mb-3">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password</label
+            >
             <input
               id="confirmPassword"
               formControlName="confirmPassword"
@@ -55,12 +75,22 @@
               class="form-control"
               placeholder="Confirm your password"
             />
-            <div *ngIf="step1Form.hasError('mismatch') && step1Form.get('confirmPassword')?.touched" class="error-message">
+            <div
+              *ngIf="
+                step1Form.hasError('mismatch') &&
+                step1Form.get('confirmPassword')?.touched
+              "
+              class="error-message"
+            >
               <small>Passwords do not match.</small>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100" [disabled]="step1Form.invalid">
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="step1Form.invalid"
+          >
             Sign up
           </button>
         </form>
@@ -73,127 +103,236 @@
 </div>
 
 <!-- Step 2: Choose Role -->
-<div *ngIf="step === 2" class="container">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-6 col-lg-4">
-      <h2>Choose Your Role</h2>
+<div
+  *ngIf="step === 2"
+  class="min-h-screen flex items-center justify-center p-6"
+>
+  <div class="flex flex-col items-center">
+    <h2 class="text-2xl font-bold text-gray-800">Choose Your Role</h2>
 
-      <div class="card-deck mt-4">
-        <div class="card" (click)="step2Form.patchValue({ role: 'professor' })">
-          <div class="card-body">
-            <h5 class="card-title">Professor</h5>
-            <p class="card-text">As a professor, you can create and manage courses.</p>
-          </div>
-        </div>
-
-        <div class="card" (click)="step2Form.patchValue({ role: 'student' })">
-          <div class="card-body">
-            <h5 class="card-title">Student</h5>
-            <p class="card-text">As a student, you can enroll in courses and track your progress.</p>
-          </div>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <!-- Professor Card -->
+      <div
+        class="bg-gradient-to-r from-indigo-700 via-blue-800 to-blue-900 text-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+        (click)="step2Form.patchValue({ role: 'professor' })"
+      >
+        <h5 class="text-xl font-bold mb-2 text-center">Professor</h5>
+        <p class="text-sm text-center">
+          As a professor, you can create and manage courses.
+        </p>
       </div>
 
-      <div class="d-flex"><button class="btn btn-secondary mt-4 w-100" (click)="prevStep()">Back</button>
-      <button class="btn btn-primary mt-4 w-100" (click)="nextStep()" [disabled]="!step2Form.value.role">Next</button></div>
-      
+      <!-- Student Card -->
+      <div
+        class="bg-gradient-to-r from-green-500 via-lime-600 to-green-700 text-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+        (click)="step2Form.patchValue({ role: 'student' })"
+      >
+        <h5 class="text-xl font-bold mb-2 text-center">Student</h5>
+        <p class="text-sm text-center">
+          As a student, you can enroll in courses and track your progress.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4 mt-8">
+      <button
+        class="w-32 flex-grow bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+        (click)="prevStep()"
+      >
+        Back
+      </button>
+      <button
+        class="w-32 flex-grow bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+        [disabled]="!step2Form.value.role"
+        (click)="nextStep()"
+      >
+        Next
+      </button>
     </div>
   </div>
 </div>
 
+
 <!-- Step 3: Dynamic form fields based on role -->
-<div *ngIf="step === 3" class="container">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-6 col-lg-4">
-      <h2>Enter Your Details</h2>
-      <form [formGroup]="step3Form">
-        <div class="form-group mb-3">
-          <label for="firstName">First Name</label>
-          <input id="firstName" formControlName="firstName" type="text" class="form-control" />
+<div *ngIf="step === 3" class="container info mt-5">
+  <h2 class="text-center mb-3">Enter Your Details</h2>
+  <form [formGroup]="step3Form" class="container">
+    <div class="row align-items-center">
+      <!-- Left Column -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            formControlName="firstName"
+            type="text"
+            class="form-control"
+          />
         </div>
 
-        <div class="form-group mb-3">
-          <label for="lastName">Last Name</label>
-          <input id="lastName" formControlName="lastName" type="text" class="form-control" />
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            type="text"
+            class="form-control"
+          />
         </div>
 
-        <div class="form-group mb-3">
-          <label for="phoneNumber">Phone Number</label>
-          <input id="phoneNumber" formControlName="phoneNumber" type="text" class="form-control" />
-          <div *ngIf="step3Form.get('phoneNumber')?.invalid && step3Form.get('phoneNumber')?.touched" class="error-message">
-            <small *ngIf="step3Form.get('phoneNumber')?.hasError('required')">Phone number is required.</small>
-            <small *ngIf="step3Form.get('phoneNumber')?.hasError('pattern')">Enter a valid 10-digit phone number.</small>
-          </div>
+        <div class="form-group">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input
+            id="phoneNumber"
+            formControlName="phoneNumber"
+            type="text"
+            class="form-control"
+          />
+          <small
+            *ngIf="
+              step3Form.get('phoneNumber')?.invalid &&
+              step3Form.get('phoneNumber')?.touched
+            "
+            class="text-danger"
+          >
+            <span *ngIf="step3Form.get('phoneNumber')?.hasError('required')"
+              >Phone number is required.</span
+            >
+            <span *ngIf="step3Form.get('phoneNumber')?.hasError('pattern')"
+              >Enter a valid 10-digit phone number.</span
+            >
+          </small>
         </div>
 
-        <div class="form-group mb-3">
-          <label for="gender">Gender</label>
-          <select id="gender" formControlName="gender" class="form-control">
+        <div class="form-group">
+          <label for="cin" class="form-label">CIN</label>
+          <input
+            id="cin"
+            formControlName="cin"
+            type="text"
+            class="form-control"
+          />
+          <small
+            *ngIf="
+              step3Form.get('cin')?.invalid && step3Form.get('cin')?.touched
+            "
+            class="text-danger"
+          >
+            <span *ngIf="step3Form.get('cin')?.hasError('required')"
+              >CIN is required.</span
+            >
+            <span *ngIf="step3Form.get('cin')?.hasError('pattern')"
+              >CIN should be between 5 to 10 alphanumeric characters.</span
+            >
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="dateOfBirth" class="form-label">Date of Birth</label>
+          <input
+            id="dateOfBirth"
+            formControlName="dateOfBirth"
+            type="date"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="gender" class="form-label">Gender</label>
+          <select
+            id="gender"
+            formControlName="gender"
+            class="form-control"
+          >
+            <option value="" disabled selected>Select your gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
         </div>
 
-        <div class="form-group mb-3">
-          <label for="cin">CIN</label>
-          <input id="cin" formControlName="cin" type="text" class="form-control" />
-          <div *ngIf="step3Form.get('cin')?.invalid && step3Form.get('cin')?.touched" class="error-message">
-            <small *ngIf="step3Form.get('cin')?.hasError('required')">CIN is required.</small>
-            <small *ngIf="step3Form.get('cin')?.hasError('pattern')">CIN should be between 5 to 10 alphanumeric characters.</small>
-          </div>
+        <div class="form-group">
+          <label for="profilePicture" class="form-label">Profile Picture</label>
+          <input
+            id="profilePicture"
+            formControlName="profilePicture"
+            type="file"
+            class="form-control"
+          />
         </div>
 
-        <div class="form-group mb-3">
-          <label for="profilePicture">Profile Picture</label>
-          <input id="profilePicture" formControlName="profilePicture" type="file" class="form-control" />
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="dateOfBirth">Date of Birth</label>
-          <input id="dateOfBirth" formControlName="dateOfBirth" type="date" class="form-control" />
-        </div>
-
-        <!-- Professor-specific fields -->
-        <div *ngIf="isProfessor">
-          <div class="form-group mb-3">
-            <label for="degree">Degree</label>
-            <input id="degree" formControlName="degree" type="text" class="form-control" />
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="fieldOfExpertise">Field of Expertise</label>
-            <input id="fieldOfExpertise" formControlName="fieldOfExpertise" type="text" class="form-control" />
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="yearsOfExperience">Years of Experience</label>
-            <input id="yearsOfExperience" formControlName="yearsOfExperience" type="number" class="form-control" />
-          </div>
-        </div>
-
-        <!-- Student-specific fields -->
         <div *ngIf="isStudent">
-          <div class="form-group mb-3">
-            <label for="major">Major</label>
-            <input id="major" formControlName="major" type="text" class="form-control" />
+          <div class="form-group">
+            <label for="major" class="form-label">Major</label>
+            <input
+              id="major"
+              formControlName="major"
+              type="text"
+              class="form-control"
+            />
           </div>
-
-          <div class="form-group mb-3">
-            <label for="level">Level</label>
-            <select id="level" formControlName="level" class="form-control">
-              <option value="undergraduate">Undergraduate</option>
-              <option value="graduate">Graduate</option>
-              <option value="postgraduate">Postgraduate</option>
-            </select>
+          <div class="form-group">
+            <label for="level" class="form-label">Level</label>
+            <input
+              id="level"
+              formControlName="level"
+              type="text"
+              class="form-control"
+            />
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" [disabled]="step3Form.invalid" (click)="submitRegistration()">
-          Submit Registration
-        </button>
-      </form>
-      <button class="btn btn-secondary mt-4 w-100" (click)="prevStep()">Back</button>
+        <div *ngIf="isProfessor">
+          <div class="form-group">
+            <label for="degree" class="form-label">Degree</label>
+            <input
+              id="degree"
+              formControlName="degree"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="fieldOfExpertise" class="form-label"
+              >Field of Expertise</label
+            >
+            <input
+              id="fieldOfExpertise"
+              formControlName="fieldOfExpertise"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="yearsOfExperience" class="form-label"
+              >Years of Experience</label
+            >
+            <input
+              id="yearsOfExperience"
+              formControlName="yearsOfExperience"
+              type="number"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-around mt-4">
+      <button class="btn btn-secondary" (click)="prevStep()">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="step3Form.invalid"
+        (click)="submitRegistration()"
+      >
+        Submit <i class="bi bi-arrow-right"></i>
+      </button>
+    </div>
+  </form>
 </div>
